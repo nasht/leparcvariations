@@ -5,7 +5,7 @@
   float c = -30;
   //float k = random(-.1, .5);
   //float c = random(-50, 50);
-  int MIN = -400;
+  int MIN = -600;
   int MAX = 1200;
   int STROKE_MIN=10;
   int STROKE_MAX=STROKE_MIN*10;
@@ -27,11 +27,11 @@ color []colsArray = {
   color(53, 39, 94)};
 void setup() {
 
-  size(1200,900);
+  size(1400,900);
   background(255);
   stroke(255);
   smooth(8);
-  noLoop();
+  //noLoop();
         // set up the coordinate axes:
    beginRecord(PDF, "test.pdf"); 
 }
@@ -39,19 +39,26 @@ void setup() {
 void draw()
 {
 
-   translate(width/2-scaler,height-scaler);
+}
+
+float curve(float x) {
+  return  k*x*x*x - k*x*x*c +  + c;
+}
+
+
+void drawCurve() {
+    translate(width/2-scaler,height-scaler);
    stroke(colsArray[count++%colsArray.length]);
     float prevY = k*-MAX*-MAX + c, prevX = MIN;
     for(float x = MIN; x < MAX; x += step)
     {
-      float y = k*x*x*x + c;
+      float y = curve(x);
       line(prevX,prevY,x,y);
      
       strokeWeight(map(x, MIN,MAX, STROKE_MIN,STROKE_MAX));
       prevX = x;
       prevY = y;
     }
-  
 }
 
 void mouseClicked() {
@@ -62,7 +69,7 @@ void mouseClicked() {
    //c = random(-50, 50);
    scaler += SCALE_STEP;
   println("(k,c) = " + k + "," + c);
-  redraw();
+  drawCurve();
 
 }
 
