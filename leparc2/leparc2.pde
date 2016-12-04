@@ -68,6 +68,7 @@ void mouseClicked() {
    //k = random(-.1, .1);
    //c = random(-50, 50);
    scaler += SCALE_STEP;
+   rotate(random(-0.02,0.02));
   println("(k,c) = " + k + "," + c);
   drawCurve();
 
