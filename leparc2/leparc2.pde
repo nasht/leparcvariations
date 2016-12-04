@@ -43,7 +43,7 @@ void draw()
 
 float curve(float x) {
   //return  k*x*x*x - k*x*x*c +  + c;
-  return 0.5*k*pow((x - c), 3) - 500*k*pow((x + c),2);
+  return 0.5*k*pow((x - c), 3) - 600*k*pow((x + c),2);
 }
 
 
