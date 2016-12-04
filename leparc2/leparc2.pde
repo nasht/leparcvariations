@@ -5,7 +5,7 @@
   float c = -30;
   //float k = random(-.1, .5);
   //float c = random(-50, 50);
-  int MIN = -400;
+  int MIN = -600;
   int MAX = 1200;
   int STROKE_MIN=10;
   int STROKE_MAX=STROKE_MIN*10;
@@ -48,8 +48,11 @@ float curve(float x) {
 
 void drawCurve() {
     translate(width/2-scaler,height/1.2-scaler);
-   stroke(colsArray[count++%colsArray.length]);
-    float prevY = k*-MAX*-MAX + c, prevX = MIN;
+    stroke(colsArray[count++%colsArray.length]);
+    
+    float prevX = MIN;
+    float prevY = curve(prevX);
+    strokeWeight(1);
     for(float x = MIN; x < MAX; x += step)
     {
       float y = curve(x);
@@ -67,8 +70,11 @@ void mouseClicked() {
 
    //k = random(-.1, .1);
    //c = random(-50, 50);
+   STROKE_MAX = (int) random(STROKE_MIN, STROKE_MIN*10);
+   SCALE_STEP = STROKE_MAX/3; 
    scaler += SCALE_STEP;
-   rotate(random(-0.02,0.02));
+   
+   //rotate(random(-0.02,0.02));
   println("(k,c) = " + k + "," + c);
   drawCurve();
 
