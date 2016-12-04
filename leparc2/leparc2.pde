@@ -1,11 +1,11 @@
   
   import processing.pdf.*;
   
-  float k = -0.000001;
+  float k = -0.00001;
   float c = -30;
   //float k = random(-.1, .5);
   //float c = random(-50, 50);
-  int MIN = -500;
+  int MIN = -600;
   int MAX = 1200;
   int STROKE_MIN=10;
   int STROKE_MAX=STROKE_MIN*10;
@@ -42,7 +42,8 @@ void draw()
 }
 
 float curve(float x) {
-  return  k*x*x*x - k*x*x*c +  + c;
+  //return  k*x*x*x - k*x*x*c +  + c;
+  return 0.5*k*pow((x - c), 3) - 500*k*pow((x + c),2);
 }
 
 
