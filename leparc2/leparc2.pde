@@ -33,7 +33,7 @@ void setup() {
   smooth(8);
   //noLoop();
         // set up the coordinate axes:
-   beginRecord(PDF, "test.pdf"); 
+   beginRaw(PDF, "test.pdf"); 
    
 }
 
@@ -41,11 +41,12 @@ int counter = 0;
 float rotation = 0.0;
 void draw()
 {
-  translate(0,height/2);
+  translate(0+counter,height/4);
+  rotateX(-rotation*50);
+  rotateZ(rotation*50);
   if (rotate) {
     rotation += 0.0001;
-    rotateX(-rotation*50);
-    rotateZ(rotation*10);
+
   }
   rainbowLine(counter);
   counter++;
@@ -62,7 +63,7 @@ void rainbowLine(int x) {
     //beginShape();
       strokeWeight(STROKE_MAX);
       for (int i = 0; i < colsArray.length; i++) {
-        drawPoint(x, i);
+        drawPoint(0, i);
       }
    // endShape();
   //popMatrix();
@@ -110,7 +111,7 @@ void mouseClicked() {
    //float scaler = 1/count;
 
    //k = random(-.1, .1);
-   //c = random(-50, 50);
+   //c = random(-50, 50);  
   // scaler += SCALE_STEP;
  // println("(k,c) = " + k + "," + c);
 //  drawCurve();
@@ -119,6 +120,6 @@ void mouseClicked() {
 
 void keyPressed() {
   if (key == 's') {
-    endRecord();
+    endRaw();
   }
 }
