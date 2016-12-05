@@ -34,13 +34,32 @@ void setup() {
   //noLoop();
         // set up the coordinate axes:
    beginRecord(PDF, "test.pdf"); 
+   //translate(0,height/2);
 }
 
+int counter = 0;
 void draw()
 {
-
+  rainbowLine(counter);
+  counter++;
 }
 
+
+void drawPoint(int x, int number) {
+    stroke(colsArray[number]);
+    point(x,STROKE_MAX*number);
+    println("x,y = " + x + "," + STROKE_MAX*number );
+}
+void rainbowLine(int x) {
+  //pushMatrix();
+    //beginShape();
+      strokeWeight(STROKE_MAX);
+      for (int i = 0; i < colsArray.length; i++) {
+        drawPoint(x, i);
+      }
+   // endShape();
+  //popMatrix();
+}
 float curve(float x) {
   //return  k*x*x*x - k*x*x*c +  + c;
   return 0.5*k*pow((x - c), 3) - 600*k*pow((x + c),2);
@@ -48,7 +67,7 @@ float curve(float x) {
 
 
 void drawCurve() {
-    translate(width/3-scaler,height/2-scaler);
+   
    stroke(colsArray[count++%colsArray.length]);
     float prevX = MIN;
     float prevY = curve(prevX);
@@ -70,9 +89,9 @@ void mouseClicked() {
 
    //k = random(-.1, .1);
    //c = random(-50, 50);
-   scaler += SCALE_STEP;
-  println("(k,c) = " + k + "," + c);
-  drawCurve();
+  // scaler += SCALE_STEP;
+ // println("(k,c) = " + k + "," + c);
+//  drawCurve();
 
 }
 
