@@ -8,7 +8,7 @@
   int MIN = -500;
   int MAX = 1200;
   int STROKE_MIN=10;
-  int STROKE_MAX=STROKE_MIN*10;
+  int STROKE_MAX=STROKE_MIN*2;
   int count = 0;
   int step = (-1*MIN + MAX)/1000;
   int SCALE_STEP = STROKE_MAX/5; 
@@ -27,19 +27,26 @@ color []colsArray = {
   color(53, 39, 94)};
 void setup() {
 
-  size(1400,900);
+  size(1400,900,P3D);
   background(255);
   stroke(255);
   smooth(8);
   //noLoop();
         // set up the coordinate axes:
    beginRecord(PDF, "test.pdf"); 
-   //translate(0,height/2);
+   
 }
 
 int counter = 0;
+float rotation = 0.0;
 void draw()
 {
+  translate(0,height/2);
+  if (rotate) {
+    rotation += 0.0001;
+    rotateX(-rotation*50);
+    rotateZ(rotation*10);
+  }
   rainbowLine(counter);
   counter++;
 }
@@ -47,8 +54,8 @@ void draw()
 
 void drawPoint(int x, int number) {
     stroke(colsArray[number]);
-    point(x,STROKE_MAX*number);
-    println("x,y = " + x + "," + STROKE_MAX*number );
+    point(x+STROKE_MAX,STROKE_MAX*number);
+    //println("x,y = " + x + "," + STROKE_MAX*number );
 }
 void rainbowLine(int x) {
   //pushMatrix();
@@ -83,7 +90,22 @@ void drawCurve() {
     }
 }
 
+Boolean rotate = false;
+
+void mousePressed() {
+  print("Mouse Pressed");
+  rotate = true;
+}
+
+void mouseReleased() {
+   print("Mouse released");
+  rotate = false;
+}
+
+
+
 void mouseClicked() {
+
    count ++;
    //float scaler = 1/count;
 
