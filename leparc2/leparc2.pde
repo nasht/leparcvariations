@@ -42,7 +42,7 @@ float rotation = 0.0;
 void draw()
 {
 
-    translate(width/2, height/3);
+    translate(width/2, height/2);
    // pushMatrix();
    
      if (rotateX) {
