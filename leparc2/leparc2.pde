@@ -8,7 +8,7 @@
   int MIN = -500;
   int MAX = 1200;
   int STROKE_MIN=10;
-  int STROKE_MAX=STROKE_MIN*2;
+  int STROKE_MAX=STROKE_MIN*4;
   int count = 0;
   int step = (-1*MIN + MAX)/1000;
   int SCALE_STEP = STROKE_MAX/5; 
@@ -41,21 +41,33 @@ int counter = 0;
 float rotation = 0.0;
 void draw()
 {
-  translate(0+counter,height/4);
-  rotateX(-rotation*50);
-  rotateZ(rotation*50);
-  if (rotate) {
-    rotation += 0.0001;
 
+    translate(width/2, height/3);
+   // pushMatrix();
+   
+     if (rotateX) {
+      rotateX(rotation);
+     } if (rotateY) {
+       rotateY(rotation);
+     }
+     if (rotateZ) {
+       rotateZ(rotation);
+     }
+
+  if (rotate) {
+    rotation = (rotation + (0.01));
+    println (rotation);
   }
   rainbowLine(counter);
   counter++;
+  //popMatrix();
 }
 
 
 void drawPoint(int x, int number) {
     stroke(colsArray[number]);
-    point(x+STROKE_MAX,STROKE_MAX*number);
+
+    point(0,STROKE_MAX*number, 0);
     //println("x,y = " + x + "," + STROKE_MAX*number );
 }
 void rainbowLine(int x) {
@@ -63,7 +75,7 @@ void rainbowLine(int x) {
     //beginShape();
       strokeWeight(STROKE_MAX);
       for (int i = 0; i < colsArray.length; i++) {
-        drawPoint(0, i);
+        drawPoint(x, i);
       }
    // endShape();
   //popMatrix();
@@ -118,8 +130,23 @@ void mouseClicked() {
 
 }
 
+Boolean rotateX = false;
+Boolean rotateY = false;
+Boolean rotateZ = false;
+
 void keyPressed() {
   if (key == 's') {
     endRaw();
+  } else if (key == 'x') {
+    rotateX = !rotateX;
+    rotation = 0.0;
+  }
+  else if (key == 'y') {
+    rotateY = !rotateY;
+    rotation = 0.0;
+  }
+  else if (key == 'z') {
+    rotateZ = !rotateZ;
+    rotation = 0.0;
   }
 }
