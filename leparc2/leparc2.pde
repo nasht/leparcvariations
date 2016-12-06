@@ -14,17 +14,17 @@
   int SCALE_STEP = STROKE_MAX/5; 
   float scaler = 1;
 color []colsArray = {
-  color(35, 59, 151), 
-  color(28, 114, 105), 
-  color(75, 202, 125), 
-  color(168, 225, 119),
-  color(233, 226, 118),
-  color(251, 179, 48),
-  color(252, 125, 58),
-  color(233, 45, 40),
-  color(190, 27, 50),
-  color(143, 26, 71),
-  color(53, 39, 94)};
+  color(35, 59, 151,124), 
+  color(28, 114, 105,124), 
+  color(75, 202, 125,124), 
+  color(168, 225, 119,124),
+  color(233, 226, 118,124),
+  color(251, 179, 48,124),
+  color(252, 125, 58,124),
+  color(233, 45, 40,124),
+  color(190, 27, 50,124),
+  color(143, 26, 71,124),
+  color(53, 39, 94,124)};
 void setup() {
 
   size(1400,900,P3D);
@@ -42,7 +42,7 @@ float rotation = 0.0;
 void draw()
 {
 
-    translate(width/2, height/2);
+    translate(counter, height/2);
    // pushMatrix();
    
      if (rotateX) {
@@ -130,8 +130,8 @@ void mouseClicked() {
 
 }
 
-Boolean rotateX = false;
-Boolean rotateY = false;
+Boolean rotateX = true;
+Boolean rotateY = true;
 Boolean rotateZ = false;
 
 void keyPressed() {
