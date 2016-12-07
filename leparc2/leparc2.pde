@@ -15,24 +15,24 @@
   float scaler = 1;
   Boolean reverse = false;
   Boolean rotate = false;
-  int xDirection = 0;
-  int yDirection = 0;
+  float xDirection = 0.0;
+  float yDirection = 0.0;
 
 color []colsArray = {
-  color(35, 59, 151,124), 
-  color(28, 114, 105,124), 
-  color(75, 202, 125,124), 
-  color(168, 225, 119,124),
-  color(233, 226, 118,124),
-  color(251, 179, 48,124),
-  color(252, 125, 58,124),
-  color(233, 45, 40,124),
-  color(190, 27, 50,124),
-  color(143, 26, 71,124),
-  color(53, 39, 94,124)};
+  color(35, 59, 151), 
+  color(28, 114, 105), 
+  color(75, 202, 125), 
+  color(168, 225, 119),
+  color(233, 226, 118),
+  color(251, 179, 48),
+  color(252, 125, 58),
+  color(233, 45, 40),
+  color(190, 27, 50),
+  color(143, 26, 71),
+  color(53, 39, 94)};
   
 void setup() {
-
+  frameRate(60);
   size(1400,900,P3D);
   background(255);
   stroke(255);
@@ -47,23 +47,22 @@ void setup() {
 float rotation = 0;
 void draw()
 {
-
-
+    translate(currentX, currentY);
+    
    
      if (rotateX) {
       rotateX(rotation );
+      rotation += radians(0.1) % HALF_PI;
      } if (rotateY) {
+        rotation += radians(0.1) % HALF_PI;
        rotateY(rotation);
      }
      if (rotateZ) {
+        rotation += radians(0.1) % HALF_PI;
        rotateZ(rotation);
      }
 
 
-  if (rotate) {
-    rotation = ((rotation));
-    println (rotation);
-  }
   rainbowLine();
 
 
@@ -74,21 +73,26 @@ int currentX = 0;
 int currentY = 0;
 
 void drawPoint(int number) {
+    
+    
+    strokeWeight(STROKE_MAX);
     stroke(colsArray[number]);
-    currentX += xDirection;
-    currentY += yDirection;
-    point(currentX,(STROKE_MAX*number) + currentY);
+    point(0,STROKE_MAX*number);
+    //point(currentX,  currentY+(STROKE_MAX*number));
+    //fill(colsArray[number]);
+    //rect(currentX, currentY+(STROKE_MAX*number), 1,STROKE_MAX);
 }
 
 
 void rainbowLine() {
 
-    beginShape();
-      strokeWeight(STROKE_MAX);
+
+      currentX += xDirection;
+      currentY += yDirection;
       for (int i = 0; i < colsArray.length; i++) {
         drawPoint(i);
       }
-   endShape();
+
 
 }
 
@@ -103,6 +107,11 @@ Boolean rotateX = false;
 Boolean rotateY = false;
 Boolean rotateZ = false;
 
+void mouseClicked() {
+  currentX = mouseX;
+  currentY = mouseY;
+}
+
 void keyPressed() {
   
   switch (key) {
@@ -113,16 +122,19 @@ void keyPressed() {
     }
     
     case 'x': {
+        rotation = 0;
        rotateX = !rotateX;
         break;
     }
     
     case 'y' : {
+      rotation = 0;
        rotateY = !rotateY;
         break;
     }
     
     case 'z' : {
+      rotation = 0;
         rotateZ = !rotateZ;
         break;
     }
