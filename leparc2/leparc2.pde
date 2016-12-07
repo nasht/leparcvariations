@@ -25,6 +25,7 @@ color []colsArray = {
   color(190, 27, 50,124),
   color(143, 26, 71,124),
   color(53, 39, 94,124)};
+  
 void setup() {
 
   size(1400,900,P3D);
@@ -42,25 +43,27 @@ float rotation = 0.0;
 void draw()
 {
 
-    translate(counter, height/2);
-   // pushMatrix();
+  translate(0,height/3);
+
+ pushMatrix();
    
      if (rotateX) {
-      rotateX(rotation);
+      rotateX(rotation );
      } if (rotateY) {
        rotateY(rotation);
      }
      if (rotateZ) {
        rotateZ(rotation);
      }
+         translate(counter, 0, counter/5);
 
   if (rotate) {
-    rotation = (rotation + (0.01));
+    rotation = ((rotation + (0.01)));
     println (rotation);
   }
   rainbowLine(counter);
   counter++;
-  //popMatrix();
+  popMatrix();
 }
 
 
@@ -71,37 +74,18 @@ void drawPoint(int x, int number) {
     //println("x,y = " + x + "," + STROKE_MAX*number );
 }
 void rainbowLine(int x) {
-  //pushMatrix();
-    //beginShape();
+
+    beginShape();
       strokeWeight(STROKE_MAX);
       for (int i = 0; i < colsArray.length; i++) {
         drawPoint(x, i);
       }
-   // endShape();
-  //popMatrix();
-}
-float curve(float x) {
-  //return  k*x*x*x - k*x*x*c +  + c;
-  return 0.5*k*pow((x - c), 3) - 600*k*pow((x + c),2);
+   endShape();
+
 }
 
 
-void drawCurve() {
-   
-   stroke(colsArray[count++%colsArray.length]);
-    float prevX = MIN;
-    float prevY = curve(prevX);
-    //strokeWeight(1);
-    for(float x = MIN; x < MAX; x += step)
-    {
-      float y = curve(x);
-      line(prevX,prevY,x,y);
-     
-      strokeWeight(map(x, MIN,MAX, STROKE_MIN,STROKE_MAX));
-      prevX = x;
-      prevY = y;
-    }
-}
+
 
 Boolean rotate = false;
 
@@ -130,8 +114,8 @@ void mouseClicked() {
 
 }
 
-Boolean rotateX = true;
-Boolean rotateY = true;
+Boolean rotateX = false;
+Boolean rotateY = false;
 Boolean rotateZ = false;
 
 void keyPressed() {
