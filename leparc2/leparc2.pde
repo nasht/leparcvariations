@@ -13,6 +13,11 @@
   int step = (-1*MIN + MAX)/1000;
   int SCALE_STEP = STROKE_MAX/5; 
   float scaler = 1;
+  Boolean reverse = false;
+  Boolean rotate = false;
+  int xDirection = 0;
+  int yDirection = 0;
+
 color []colsArray = {
   color(35, 59, 151,124), 
   color(28, 114, 105,124), 
@@ -38,14 +43,12 @@ void setup() {
    
 }
 
-int counter = 0;
-float rotation = 0.0;
+
+float rotation = 0;
 void draw()
 {
 
-  translate(0,height/3);
 
- pushMatrix();
    
      if (rotateX) {
       rotateX(rotation );
@@ -55,30 +58,35 @@ void draw()
      if (rotateZ) {
        rotateZ(rotation);
      }
-         translate(counter, 0, counter/5);
+
 
   if (rotate) {
-    rotation = ((rotation + (0.01)));
+    rotation = ((rotation));
     println (rotation);
   }
-  rainbowLine(counter);
-  counter++;
-  popMatrix();
+  rainbowLine();
+
+
 }
 
 
-void drawPoint(int x, int number) {
+int currentX = 0;
+int currentY = 0;
+
+void drawPoint(int number) {
     stroke(colsArray[number]);
-
-    point(0,STROKE_MAX*number, 0);
-    //println("x,y = " + x + "," + STROKE_MAX*number );
+    currentX += xDirection;
+    currentY += yDirection;
+    point(currentX,(STROKE_MAX*number) + currentY);
 }
-void rainbowLine(int x) {
+
+
+void rainbowLine() {
 
     beginShape();
       strokeWeight(STROKE_MAX);
       for (int i = 0; i < colsArray.length; i++) {
-        drawPoint(x, i);
+        drawPoint(i);
       }
    endShape();
 
@@ -87,50 +95,91 @@ void rainbowLine(int x) {
 
 
 
-Boolean rotate = false;
-
-void mousePressed() {
-  print("Mouse Pressed");
-  rotate = true;
-}
-
-void mouseReleased() {
-   print("Mouse released");
-  rotate = false;
-}
 
 
 
-void mouseClicked() {
-
-   count ++;
-   //float scaler = 1/count;
-
-   //k = random(-.1, .1);
-   //c = random(-50, 50);  
-  // scaler += SCALE_STEP;
- // println("(k,c) = " + k + "," + c);
-//  drawCurve();
-
-}
 
 Boolean rotateX = false;
 Boolean rotateY = false;
 Boolean rotateZ = false;
 
 void keyPressed() {
-  if (key == 's') {
-    endRaw();
-  } else if (key == 'x') {
-    rotateX = !rotateX;
-    rotation = 0.0;
+  
+  switch (key) {
+    
+    case 'p': {
+       endRaw();
+        break;
+    }
+    
+    case 'x': {
+       rotateX = !rotateX;
+        break;
+    }
+    
+    case 'y' : {
+       rotateY = !rotateY;
+        break;
+    }
+    
+    case 'z' : {
+        rotateZ = !rotateZ;
+        break;
+    }
+    
+    case '-' : {
+       reverse = true;
+       break;
+    }
+    
+    case '+' : {
+      reverse = false;
+      break;
+    }
+    
+    case 'w' : {
+      yDirection = -1;
+      break;
+    }
+    case 'a' : {
+      xDirection = -1;
+      break;
+    }
+    case 's' : {
+      yDirection = 1;
+      break;
+    }
+    case 'd' : {
+      xDirection = 1;
+      break;
+    }
+    default :  {
+      break;
+    }   
   }
-  else if (key == 'y') {
-    rotateY = !rotateY;
-    rotation = 0.0;
+}
+
+void keyReleased() {
+  switch (key) {
+    case 'w' : {
+      yDirection = 0;
+      break;
+    }
+    case 'a' : {
+      xDirection = 0;
+      break;
+    }
+    case 's' : {
+      yDirection = 0;
+      break;
+    }
+    case 'd' : {
+      xDirection = 0;
+      break;
+    }
+    default: {
+      break;
+    }
   }
-  else if (key == 'z') {
-    rotateZ = !rotateZ;
-    rotation = 0.0;
-  }
+  
 }
