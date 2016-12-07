@@ -8,7 +8,7 @@
   int MIN = -500;
   int MAX = 1200;
   int STROKE_MIN=10;
-  int STROKE_MAX=STROKE_MIN*4;
+  int STROKE_MAX=STROKE_MIN*2;
   int count = 0;
   int step = (-1*MIN + MAX)/1000;
   int SCALE_STEP = STROKE_MAX/5; 
@@ -17,6 +17,10 @@
   Boolean rotate = false;
   float xDirection = 0.0;
   float yDirection = 0.0;
+  
+  float rotationX = 0;
+  float rotationY = 0;
+  float rotationZ = 0;
 
 color []colsArray = {
   color(35, 59, 151), 
@@ -51,15 +55,15 @@ void draw()
     
    
      if (rotateX) {
-      rotateX(rotation );
-      rotation += radians(0.1) % HALF_PI;
+      rotateX(rotationX );
+      rotationX += radians(0.5) % TWO_PI;
      } if (rotateY) {
-        rotation += radians(0.1) % HALF_PI;
-       rotateY(rotation);
+        rotationY += radians(1) % TWO_PI;
+       rotateY(rotationY);
      }
      if (rotateZ) {
-        rotation += radians(0.1) % HALF_PI;
-       rotateZ(rotation);
+        rotationZ += radians(0.5) % TWO_PI;
+       rotateZ(rotationZ);
      }
 
 
@@ -99,10 +103,6 @@ void rainbowLine() {
 
 
 
-
-
-
-
 Boolean rotateX = false;
 Boolean rotateY = false;
 Boolean rotateZ = false;
@@ -122,19 +122,19 @@ void keyPressed() {
     }
     
     case 'x': {
-        rotation = 0;
+        rotationX = 0;
        rotateX = !rotateX;
         break;
     }
     
     case 'y' : {
-      rotation = 0;
+      rotationY = 0;
        rotateY = !rotateY;
         break;
     }
     
     case 'z' : {
-      rotation = 0;
+      rotationZ = 0;
         rotateZ = !rotateZ;
         break;
     }
