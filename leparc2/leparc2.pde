@@ -35,6 +35,8 @@ color []colsArray = {
   color(143, 26, 71),
   color(53, 39, 94)};
   
+int shapeHeight = STROKE_MAX*colsArray.length;
+  
 void setup() {
   frameRate(60);
   size(1400,900,P3D);
@@ -51,22 +53,25 @@ void setup() {
 float rotation = 0;
 void draw()
 {
-    translate(currentX, currentY);
+    translate(currentX, currentY-shapeHeight/2);
     
    
      if (rotateX) {
-      rotateX(rotationX );
       rotationX += radians(0.5) % TWO_PI;
-     } if (rotateY) {
+     } 
+     
+     if (rotateY) {
         rotationY += radians(1) % TWO_PI;
-       rotateY(rotationY);
+      
      }
      if (rotateZ) {
         rotationZ += radians(0.5) % TWO_PI;
-       rotateZ(rotationZ);
+     
      }
 
-
+  rotateX(rotationX );
+   rotateZ(rotationZ);
+  rotateY(rotationY);
   rainbowLine();
 
 
@@ -122,19 +127,16 @@ void keyPressed() {
     }
     
     case 'x': {
-        rotationX = 0;
        rotateX = !rotateX;
         break;
     }
     
     case 'y' : {
-      rotationY = 0;
        rotateY = !rotateY;
         break;
     }
     
     case 'z' : {
-      rotationZ = 0;
         rotateZ = !rotateZ;
         break;
     }
@@ -163,6 +165,14 @@ void keyPressed() {
     }
     case 'd' : {
       xDirection = 1;
+      break;
+    }
+    case 'c' : {
+      background(255);
+      break;
+    }
+    case 'r' : {
+      rotationX = rotationY = rotationZ  = 0;
       break;
     }
     default :  {
