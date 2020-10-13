@@ -1,5 +1,6 @@
   
   import processing.pdf.*;
+  import java.util.Date;
   
   float k = -0.00001;
   float c = -30;
@@ -8,7 +9,7 @@
   int MIN = -500;
   int MAX = 1200;
   int STROKE_MIN=10;
-  int STROKE_MAX=STROKE_MIN*2;
+  int STROKE_MAX=40;//STROKE_MIN*2;
   int count = 0;
   int step = (-1*MIN + MAX)/1000;
   int SCALE_STEP = STROKE_MAX/5; 
@@ -38,17 +39,30 @@ color []colsArray = {
 int shapeHeight = STROKE_MAX*colsArray.length;
   
 void setup() {
-  frameRate(60);
-  size(1400,900,P3D);
+  frameRate(120);
+  size(1800,1200,P3D);
   background(255);
   stroke(255);
   smooth(8);
   //noLoop();
         // set up the coordinate axes:
-   beginRaw(PDF, "test.pdf"); 
+
+   beginPDF();
+   currentX = width/2;
+   currentY = height/2 + shapeHeight/2;
    
 }
 
+String timestamp() {
+  Date d = new Date();
+  println(d.getTime());
+  return "" + d.getTime();
+}
+
+
+void beginPDF() {
+  beginRaw(PDF, "test-" + timestamp() +".pdf"); 
+}
 
 float rotation = 0;
 void draw()
@@ -168,6 +182,8 @@ void keyPressed() {
       break;
     }
     case 'c' : {
+      endRaw();
+      beginPDF();
       background(255);
       break;
     }
