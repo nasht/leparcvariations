@@ -22,6 +22,8 @@
   float rotationX = 0;
   float rotationY = 0;
   float rotationZ = 0;
+  
+  int multiplier = 1;
 
 color []colsArray = {
   color(35, 59, 151), 
@@ -67,19 +69,22 @@ void beginPDF() {
 float rotation = 0;
 void draw()
 {
+  
+  
     translate(currentX, currentY-shapeHeight/2);
     
+      multiplier = reverse ? -1 : 1;
    
      if (rotateX) {
-      rotationX += radians(0.5) % TWO_PI;
+      rotationX += (radians(0.5) % TWO_PI) * multiplier;
      } 
      
      if (rotateY) {
-        rotationY += radians(1) % TWO_PI;
+        rotationY += (radians(0.5) % TWO_PI) * multiplier;
       
      }
      if (rotateZ) {
-        rotationZ += radians(0.5) % TWO_PI;
+        rotationZ += (radians(0.5) % TWO_PI) * multiplier;
      
      }
 
@@ -141,29 +146,21 @@ void keyPressed() {
     }
     
     case 'x': {
-       rotateX = !rotateX;
+       rotateX = true;
         break;
     }
     
     case 'y' : {
-       rotateY = !rotateY;
+       rotateY = true;
         break;
     }
     
     case 'z' : {
-        rotateZ = !rotateZ;
+        rotateZ = true;
         break;
     }
     
-    case '-' : {
-       reverse = true;
-       break;
-    }
-    
-    case '+' : {
-      reverse = false;
-      break;
-    }
+
     
     case 'w' : {
       yDirection = -1;
@@ -215,6 +212,33 @@ void keyReleased() {
       xDirection = 0;
       break;
     }
+    
+       case 'x': {
+       rotateX = false;
+        break;
+    }
+    
+    case 'y' : {
+       rotateY = false;
+        break;
+    }
+    
+    case 'z' : {
+        rotateZ = false;
+        break;
+    }
+    
+    case '-' : {
+       reverse = true;
+       break;
+    }
+    
+    case '+' : {
+      reverse = false;
+      break;
+    }
+    
+      
     default: {
       break;
     }
